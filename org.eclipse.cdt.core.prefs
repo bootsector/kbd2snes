@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/CPATH/delimiter=\:
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/CPATH/operation=append
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/CPATH/value=/usr/local/Cellar/avr-gcc/4.9.3/avr/include
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/PATH/delimiter=\:
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/PATH/operation=replace
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/PATH/value=/usr/local/bin\:/usr/bin\:/bin\:/usr/sbin\:/sbin
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/append=true
+environment/project/de.innot.avreclipse.toolchain.winavr.base.2073046101/appendContributed=true
