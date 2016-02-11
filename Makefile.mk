@@ -168,7 +168,7 @@ CFLAGS += -Wall
 #CFLAGS += -Wsign-compare
 #CFLAGS += -Wa,-adhlns=$(<:%.c=$(OBJDIR)/%.lst)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
-#CFLAGS += $(CSTANDARD)
+CFLAGS += $(CSTANDARD)
 
 
 #---------------- Compiler Options C++ ----------------
@@ -198,7 +198,7 @@ CPPFLAGS += -Wall
 #CPPFLAGS += -Wsign-compare
 #CPPFLAGS += -Wa,-adhlns=$(<:%.cpp=$(OBJDIR)/%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
-#CPPFLAGS += $(CSTANDARD)
+CPPFLAGS += $(CSTANDARD)
 
 
 

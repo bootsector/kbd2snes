@@ -13,14 +13,12 @@ uint8_t str_buffer[255];
 
 int main(void)
 {
-	int i;
-
 	// Arduino's Serial library needs this
 	sei(); // Enable global interrupts
 
 	Serial_begin(57600);
 
-	for(i = 0; i < 5; i++) {
+	for(int i = 0; i < 5; i++) {
 		rb_add(i);
 	}
 
