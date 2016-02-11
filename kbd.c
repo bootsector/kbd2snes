@@ -6,10 +6,10 @@
 
 void kbd_init(void) {
 	DDRC &= ~(_BV(PC4));
-	PORTC |= _BV(PC4);
+	//PORTC |= _BV(PC4);
 
 	DDRC &= ~(_BV(PC5));
-	PORTC |= _BV(PC5);
+	//PORTC |= _BV(PC5);
 
 	PCICR |= (1 << PCIE1);
 	PCMSK1 |= (1 << PCINT12);
