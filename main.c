@@ -3,6 +3,7 @@
 #include <util/delay.h>
 
 #include "kbd.h"
+#include "snes.h"
 
 #include <arduino_serial.h>
 
@@ -10,6 +11,8 @@ uint8_t str_buffer[255];
 
 int main(void)
 {
+	snes_init();
+
 	kbd_init();
 
 	Serial_begin(57600);

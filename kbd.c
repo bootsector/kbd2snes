@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#include "kbd.h"
 #include "ringbuffer.h"
 
 void kbd_init(void) {
