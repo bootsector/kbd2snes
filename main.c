@@ -2,41 +2,34 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-#include "ringbuffer.h"
+#include "kbd.h"
 
 #include <arduino_serial.h>
 
 uint8_t str_buffer[255];
 
-#define bit_set(p,m) ((p) |= (m))
-#define bit_clear(p,m) ((p) &= ~(m))
-
 int main(void)
 {
-	// Arduino's Serial library needs this
-	sei(); // Enable global interrupts
+	kbd_init();
 
 	Serial_begin(57600);
 
-	for(int i = 0; i < 5; i++) {
-		rb_add(i);
+	sprintf(str_buffer, "Reading from keyboard...\n");
+	Serial_println(str_buffer);
+
+	for(;;) {
+		if(rb_hasitem()) {
+			uint8_t item = rb_get();
+
+			sprintf(str_buffer, "Retrieved item: %02X\n", item);
+			Serial_println(str_buffer);
+		} else {
+			sprintf(str_buffer, "Idle...\n");
+			Serial_println(str_buffer);
+		}
+
+		_delay_ms(1000);
 	}
-
-	while(1) {
-		uint8_t item = rb_get();
-
-		sprintf(str_buffer, "Retrieved item: %d\n", item);
-
-		Serial_println(str_buffer);
-
-		sprintf(str_buffer, "Size: %d\n", rb_getcount());
-
-		Serial_println(str_buffer);
-
-		_delay_ms(2000);
-	}
-
-	for(;;);
 
 	return 0;
 }
