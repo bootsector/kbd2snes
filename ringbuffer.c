@@ -1,6 +1,6 @@
 #include <ringbuffer.h>
 
-#define BUFFER_SIZE 255
+#define BUFFER_SIZE 128
 
 static uint8_t buffer[BUFFER_SIZE];
 
@@ -27,10 +27,12 @@ void rb_add(uint8_t item) {
 }
 
 uint8_t rb_get() {
-	uint8_t element = buffer[tail];
+	uint8_t element = 0;
 
-	if(rb_hasitem())
+	if(rb_hasitem()) {
+		element = buffer[tail];
 		tail = (tail + 1) % BUFFER_SIZE;
+	}
 
 	return element;
 }
