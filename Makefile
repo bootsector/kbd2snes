@@ -80,7 +80,7 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = main.c ringbuffer.c kbd.c snes.c\
+SRC = main.c ringbuffer.c kbd.c snes.c kbdhandler.c \
 arduino_serial.c ./arduinocore/wiring_digital.c ./arduinocore/wiring.c
 
 

@@ -1,6 +1,8 @@
 #ifndef SNES_H_
 #define SNES_H_
 
+#include <stdint.h>
+
 #define SNES_B		0
 #define SNES_Y		1
 #define SNES_SELECT	2
