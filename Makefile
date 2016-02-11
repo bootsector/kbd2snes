@@ -294,9 +294,9 @@ AVRDUDE_PORT = /dev/cu.usbserial-A800eFLF    # programmer connected to serial de
 AVRDUDE_BAUD = 57600   # serial device baud rate
 
 # Fuses config
-#AVRDUDE_HFUSE = 0xde
-#AVRDUDE_LFUSE = 0xe2
-#AVRDUDE_EFUSE = 0x05
+AVRDUDE_HFUSE = 0xde
+AVRDUDE_LFUSE = 0xe2
+AVRDUDE_EFUSE = 0x05
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
@@ -466,8 +466,8 @@ gccversion :
 
 # Program the device. 
 program: $(TARGET).hex $(TARGET).eep
-#$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 #$(AVRDUDE) $(AVRDUDE_FLAGS) -e
+#$(AVRDUDE) $(AVRDUDE_FLAGS) -U lock:w:0x3f:m
 #$(AVRDUDE) $(AVRDUDE_FLAGS) -U hfuse:w:$(AVRDUDE_HFUSE):m -U lfuse:w:$(AVRDUDE_LFUSE):m -U efuse:w:$(AVRDUDE_EFUSE):m
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)
 
