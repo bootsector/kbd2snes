@@ -21,6 +21,10 @@
 #include "snes.h"
 
 void snes_init(void) {
+	snes_reset_output();
+}
+
+void snes_reset_output(void) {
 	DDRB |= _BV(PB0);
 	PORTB |= _BV(PB0);
 

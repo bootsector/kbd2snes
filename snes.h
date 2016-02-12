@@ -39,5 +39,6 @@
 void snes_init(void);
 void snes_press(uint8_t button);
 void snes_release(uint8_t button);
+void snes_reset_output(void);
 
 #endif /* SNES_H_ */
