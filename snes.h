@@ -34,6 +34,8 @@
 #define SNES_L		10
 #define SNES_R		11
 
+#define SNES_NO_ACTION	255
+
 void snes_init(void);
 void snes_press(uint8_t button);
 void snes_release(uint8_t button);
