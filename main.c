@@ -28,12 +28,11 @@ int main(void)
 	kbd_init();
 
 	for(;;) {
-		if(rb_hasitem()) {
-			uint8_t key = rb_get();
+		while(!rb_hasitem());
 
-			keyboard_handle_key(key);
+		uint8_t key = rb_get();
 
-		}
+		keyboard_handle_key(key);
 	}
 
 	return 0;
