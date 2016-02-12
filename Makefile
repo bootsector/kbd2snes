@@ -62,7 +62,7 @@ MCU = atmega328p
 #         F_CPU = 16000000
 #         F_CPU = 18432000
 #         F_CPU = 20000000
-F_CPU = 16000000
+F_CPU = 8000000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -80,12 +80,11 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = main.c ringbuffer.c kbd.c snes.c kbdhandler.c \
-arduino_serial.c ./arduinocore/wiring_digital.c ./arduinocore/wiring.c
+SRC = main.c ringbuffer.c kbd.c snes.c kbdhandler.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
-CPPSRC = arduino_serial.cpp ./arduinocore/HardwareSerial.cpp ./arduinocore/Print.cpp
+CPPSRC = 
 
 
 
@@ -116,7 +115,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = ./arduinocore ./arduinocore/avr-libc ./arduinocore/standard 
+EXTRAINCDIRS =  
 
 
 # Compiler flag to set the C Standard level.
@@ -246,7 +245,7 @@ MATH_LIB = -lm
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS = ./arduinocore
+EXTRALIBDIRS = 
 
 EXTRA_LIBS = 
 
@@ -290,13 +289,13 @@ AVRDUDE_PROGRAMMER = stk500v1 #arduino #stk500v1
 AVRDUDE_CONFIG = "/usr/local/etc/avrdude.conf"
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
-AVRDUDE_PORT = /dev/cu.usbserial-A800eFLF    # programmer connected to serial device
-AVRDUDE_BAUD = 57600   # serial device baud rate
+AVRDUDE_PORT = /dev/tty.usbmodem12341 # /dev/cu.usbserial-A800eFLF    # programmer connected to serial device
+AVRDUDE_BAUD = 19200   # serial device baud rate
 
 # Fuses config
 AVRDUDE_HFUSE = 0xde
 AVRDUDE_LFUSE = 0xe2
-AVRDUDE_EFUSE = 0x05
+AVRDUDE_EFUSE = 0xfd
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
@@ -466,9 +465,9 @@ gccversion :
 
 # Program the device. 
 program: $(TARGET).hex $(TARGET).eep
-#$(AVRDUDE) $(AVRDUDE_FLAGS) -e
-#$(AVRDUDE) $(AVRDUDE_FLAGS) -U lock:w:0x3f:m
-#$(AVRDUDE) $(AVRDUDE_FLAGS) -U hfuse:w:$(AVRDUDE_HFUSE):m -U lfuse:w:$(AVRDUDE_LFUSE):m -U efuse:w:$(AVRDUDE_EFUSE):m
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -e
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U lock:w:0x3f:m
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U hfuse:w:$(AVRDUDE_HFUSE):m -U lfuse:w:$(AVRDUDE_LFUSE):m -U efuse:w:$(AVRDUDE_EFUSE):m
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)
 
 
