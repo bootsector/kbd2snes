@@ -21,44 +21,34 @@
 #include "snes.h"
 
 void snes_init(void) {
+	DDRB |= _BV(PB0);
+	DDRB |= _BV(PB1);
+	DDRB |= _BV(PB2);
+	DDRB |= _BV(PB3);
+	DDRB |= _BV(PB4);
+	DDRB |= _BV(PB5);
+	DDRC |= _BV(PC0);
+	DDRC |= _BV(PC1);
+	DDRC |= _BV(PC2);
+	DDRC |= _BV(PC3);
+	DDRD |= _BV(PD3);
+	DDRD |= _BV(PD7);
+
 	snes_reset_output();
 }
 
 void snes_reset_output(void) {
-	DDRB |= _BV(PB0);
 	PORTB |= _BV(PB0);
-
-	DDRB |= _BV(PB1);
 	PORTB |= _BV(PB1);
-
-	DDRB |= _BV(PB2);
 	PORTB |= _BV(PB2);
-
-	DDRB |= _BV(PB3);
 	PORTB |= _BV(PB3);
-
-	DDRB |= _BV(PB4);
 	PORTB |= _BV(PB4);
-
-	DDRB |= _BV(PB5);
 	PORTB |= _BV(PB5);
-
-	DDRC |= _BV(PC0);
 	PORTC |= _BV(PC0);
-
-	DDRC |= _BV(PC1);
 	PORTC |= _BV(PC1);
-
-	DDRC |= _BV(PC2);
 	PORTC |= _BV(PC2);
-
-	DDRC |= _BV(PC3);
 	PORTC |= _BV(PC3);
-
-	DDRD |= _BV(PD3);
 	PORTD |= _BV(PD3);
-
-	DDRD |= _BV(PD7);
 	PORTD |= _BV(PD7);
 }
 
