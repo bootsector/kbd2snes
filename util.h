@@ -16,43 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
+#ifndef UTIL_H_
+#define UTIL_H_
 
-#include "kbd.h"
-#include "ringbuffer.h"
-#include "util.h"
+#define bit_set(p,m) ((p) |= (m))
+#define bit_clear(p,m) ((p) &= ~(m))
 
-volatile static uint8_t bit = 0;
-volatile static uint8_t data = 0;
-
-void kbd_init(void) {
-	bit_clear(DDRC, _BV(PC4));
-	bit_set(PORTC, _BV(PC4));
-
-	bit_clear(DDRC, _BV(PC5));
-	bit_set(PORTC, _BV(PC5));
-
-	bit = data = 0;
-
-	bit_set(PCICR, _BV(PCIE1));
-	bit_set(PCMSK1, _BV(PCINT12));
-
-	sei();
-}
-
-ISR(PCINT1_vect)
-{
-	if(bit_is_clear(PINC, PC4)) {
-		if(bit_is_set(PINC, PC5) && (bit > 0 && bit < 9)) {
-			bit_set(data, _BV(bit-1));
-		}
-
-		bit++;
-
-		if(bit > 10){
-			rb_add(data);
-			bit = data = 0;
-		}
-	}
-}
+#endif /* UTIL_H_ */
