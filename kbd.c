@@ -26,6 +26,9 @@
 volatile static uint8_t bit = 0;
 volatile static uint8_t data = 0;
 
+// Count time frames of 32.78ms (for 8Mhz clock).
+volatile static uint8_t time_counter = 0;
+
 void kbd_init(void) {
 	bit_clear(DDRC, _BV(PC4));
 	bit_set(PORTC, _BV(PC4));
@@ -33,17 +36,33 @@ void kbd_init(void) {
 	bit_clear(DDRC, _BV(PC5));
 	bit_set(PORTC, _BV(PC5));
 
-	bit = data = 0;
+	bit = data = time_counter = 0;
 
+	// Clock pin change interrupt
 	bit_set(PCICR, _BV(PCIE1));
 	bit_set(PCMSK1, _BV(PCINT12));
+
+	// Timer0 overflow interrupt setup: Prescaler = FCPU/1024
+	TCCR0A = 0;
+	TCCR0B |= (1 << CS02) | (1 << CS00);
+
+	TCNT0 = 0;
+
+	// enable Timer0 overflow interrupt:
+	TIMSK0 = (1 << TOIE0);
 
 	sei();
 }
 
+// Clock line change interrupt handler
 ISR(PCINT1_vect)
 {
 	if(bit_is_clear(PINC, PC4)) {
+		// More than ~250ms has passed since last clock low signal. Reset serial data variables.
+		if(time_counter > 7) {
+			bit = data = 0;
+		}
+
 		if(bit_is_set(PINC, PC5) && (bit > 0 && bit < 9)) {
 			bit_set(data, _BV(bit-1));
 		}
@@ -54,5 +73,15 @@ ISR(PCINT1_vect)
 			rb_add(data);
 			bit = data = 0;
 		}
+
+		time_counter = 0;
+	}
+}
+
+// This will be called around 30.5 times within a second, or at every 32.78ms (for a 8Mhz clock)
+ISR(TIMER0_OVF_vect)
+{
+	if(time_counter < 0xFF) {
+		time_counter++;
 	}
 }
