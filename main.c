@@ -17,12 +17,9 @@
  */
 
 #include "kbdhandler.h"
-#include "snes.h"
 
 int main(void)
 {
-	snes_init();
-
 	keyboard_init();
 
 	for(;;) {

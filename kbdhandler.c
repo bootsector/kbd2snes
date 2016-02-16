@@ -42,6 +42,8 @@ static int kbd_extended_flag = 0;
 static int kbd_key_profile = 0;
 
 void keyboard_init(void) {
+	snes_init();
+
 	kbd_init();
 }
 
