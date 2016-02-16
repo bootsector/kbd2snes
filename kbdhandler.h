@@ -22,5 +22,8 @@
 #include <stdint.h>
 
 void keyboard_handle_key(uint8_t key);
+void keyboard_init(void);
+uint8_t keyboard_has_data(void);
+uint8_t keyboard_get_data(void);
 
 #endif /* KBDHANDLER_H_ */

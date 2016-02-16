@@ -20,8 +20,14 @@
 #include <avr/interrupt.h>
 
 #include "kbd.h"
-#include "ringbuffer.h"
 #include "util.h"
+
+#define BUFFER_SIZE 128
+
+static uint8_t buffer[BUFFER_SIZE];
+
+static volatile int head = 0;
+static volatile int tail = 0;
 
 volatile static uint8_t bit = 0;
 volatile static uint8_t data = 0;
@@ -54,6 +60,36 @@ void kbd_init(void) {
 	sei();
 }
 
+int kbd_rb_getcount() {
+	return (BUFFER_SIZE + head - tail) % BUFFER_SIZE;
+}
+
+uint8_t kbd_rb_hasitem(void) {
+	return kbd_rb_getcount() > 0;
+}
+
+void kbd_rb_add(uint8_t item) {
+	buffer[head] = item;
+
+	head = (head + 1) % BUFFER_SIZE;
+
+	// Head pushes Tail forward if full...
+	if (head == tail) {
+		tail = (tail + 1) % BUFFER_SIZE;
+	}
+}
+
+uint8_t kbd_rb_get() {
+	uint8_t element = 0;
+
+	if(kbd_rb_hasitem()) {
+		element = buffer[tail];
+		tail = (tail + 1) % BUFFER_SIZE;
+	}
+
+	return element;
+}
+
 // Clock line change interrupt handler
 ISR(PCINT1_vect)
 {
@@ -70,7 +106,7 @@ ISR(PCINT1_vect)
 		bit++;
 
 		if(bit > 10){
-			rb_add(data);
+			kbd_rb_add(data);
 			bit = data = 0;
 		}
 

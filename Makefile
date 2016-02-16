@@ -80,7 +80,7 @@ OBJDIR = .
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = main.c ringbuffer.c kbd.c snes.c kbdhandler.c
+SRC = main.c kbd.c snes.c kbdhandler.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

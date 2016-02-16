@@ -19,7 +19,7 @@
 
 #include "kbdhandler.h"
 #include "snes.h"
-#include "ringbuffer.h"
+#include "kbd.h"
 
 #define NUM_KBD_PROFILES 2
 
@@ -41,11 +41,23 @@ const uint8_t PROGMEM ext_keys_lut[NUM_KBD_PROFILES][256] = {
 static int kbd_extended_flag = 0;
 static int kbd_key_profile = 0;
 
+void keyboard_init(void) {
+	kbd_init();
+}
+
+uint8_t keyboard_has_data(void) {
+	return kbd_rb_hasitem();
+}
+
+uint8_t keyboard_get_data(void) {
+	return kbd_rb_get();
+}
+
 static void keyboard_ignore_next_keys(int keys) {
 	while(keys--) {
-		while(!rb_hasitem());
+		while(!kbd_rb_hasitem());
 
-		rb_get();
+		kbd_rb_get();
 	}
 }
 
@@ -71,9 +83,9 @@ static void keyboard_make(uint8_t key) {
 }
 
 static void keyboard_break(void) {
-	while(!rb_hasitem());
+	while(!kbd_rb_hasitem());
 
-	uint8_t key = rb_get();
+	uint8_t key = kbd_rb_get();
 
 	if(kbd_extended_flag) {
 		switch(key) {
@@ -96,11 +108,11 @@ static void keyboard_break(void) {
 }
 
 static void keyboard_extended(void) {
-	while(!rb_hasitem());
+	while(!kbd_rb_hasitem());
 
 	kbd_extended_flag = 1;
 
-	uint8_t key = rb_get();
+	uint8_t key = kbd_rb_get();
 
 	switch(key) {
 		case 0xF0:

@@ -16,21 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kbd.h"
 #include "kbdhandler.h"
-#include "ringbuffer.h"
 #include "snes.h"
 
 int main(void)
 {
 	snes_init();
 
-	kbd_init();
+	keyboard_init();
 
 	for(;;) {
-		while(!rb_hasitem());
+		while(!keyboard_has_data());
 
-		uint8_t key = rb_get();
+		uint8_t key = keyboard_get_data();
 
 		keyboard_handle_key(key);
 	}

@@ -20,5 +20,9 @@
 #define KBD_H_
 
 void kbd_init(void);
+int kbd_rb_getcount();
+uint8_t kbd_rb_hasitem(void);
+void kbd_rb_add(uint8_t item);
+uint8_t kbd_rb_get();
 
 #endif /* KBD_H_ */
