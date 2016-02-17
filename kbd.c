@@ -36,11 +36,22 @@ volatile static uint8_t data = 0;
 volatile static uint8_t time_counter = 0;
 
 void kbd_init(void) {
-	bit_clear(DDRC, _BV(PC4));
-	bit_set(PORTC, _BV(PC4));
+	// Pullup check pin (D5) as input (pullup on)
+	bit_clear(DDRD, _BV(PD5));
+	bit_set(PORTD, _BV(PD5));
 
+	// Clock pin as input
+	bit_clear(DDRC, _BV(PC4));
+
+	// Data pin as input
 	bit_clear(DDRC, _BV(PC5));
-	bit_set(PORTC, _BV(PC5));
+
+	// If pullups switch is in ON position (grounded), activates pullups for data and clock lines
+	// TODO: Remove the negation below for kbd2snes board v1.0
+	if(!bit_is_clear(PIND, PD5)) {
+		bit_set(PORTC, _BV(PC4));
+		bit_set(PORTC, _BV(PC5));
+	}
 
 	bit = data = time_counter = 0;
 
