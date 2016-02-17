@@ -34,6 +34,10 @@ void snes_init(void) {
 	bit_set(DDRC, _BV(PC3));
 	bit_set(DDRD, _BV(PD3));
 	bit_set(DDRD, _BV(PD7));
+	bit_set(DDRD, _BV(PD0));
+	bit_set(DDRD, _BV(PD1));
+	bit_set(DDRD, _BV(PD2));
+	bit_set(DDRD, _BV(PD4));
 
 	snes_reset_output();
 }
@@ -51,6 +55,10 @@ void snes_reset_output(void) {
 	bit_set(PORTC, _BV(PC3));
 	bit_set(PORTD, _BV(PD3));
 	bit_set(PORTD, _BV(PD7));
+	bit_set(PORTD, _BV(PD0));
+	bit_set(PORTD, _BV(PD1));
+	bit_set(PORTD, _BV(PD2));
+	bit_set(PORTD, _BV(PD4));
 }
 
 void snes_press(uint8_t button) {
@@ -95,6 +103,18 @@ void snes_press(uint8_t button) {
 		case SNES_R:
 			bit_clear(PORTD, _BV(PD7));
 			break;
+		case SNES_XTRA_1:
+			bit_clear(PORTD, _BV(PD0));
+			break;
+		case SNES_XTRA_2:
+			bit_clear(PORTD, _BV(PD1));
+			break;
+		case SNES_XTRA_3:
+			bit_clear(PORTD, _BV(PD2));
+			break;
+		case SNES_XTRA_4:
+			bit_clear(PORTD, _BV(PD4));
+			break;
 	}
 }
 
@@ -135,6 +155,18 @@ void snes_release(uint8_t button) {
 			break;
 		case SNES_R:
 			bit_set(PORTD, _BV(PD7));
+			break;
+		case SNES_XTRA_1:
+			bit_set(PORTD, _BV(PD0));
+			break;
+		case SNES_XTRA_2:
+			bit_set(PORTD, _BV(PD1));
+			break;
+		case SNES_XTRA_3:
+			bit_set(PORTD, _BV(PD2));
+			break;
+		case SNES_XTRA_4:
+			bit_set(PORTD, _BV(PD4));
 			break;
 	}
 }

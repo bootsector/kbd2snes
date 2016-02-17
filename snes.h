@@ -33,6 +33,10 @@
 #define SNES_X		9
 #define SNES_L		10
 #define SNES_R		11
+#define SNES_XTRA_1	12
+#define SNES_XTRA_2	13
+#define SNES_XTRA_3	14
+#define SNES_XTRA_4	15
 
 #define SNES_NO_ACTION	255
 
