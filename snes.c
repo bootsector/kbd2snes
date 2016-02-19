@@ -76,19 +76,19 @@ void snes_press(uint8_t button) {
 			bit_clear(PORTB, _BV(PB3));
 			break;
 		case SNES_UP:
-			snes_release(SNES_DOWN);
+			//snes_release(SNES_DOWN);
 			bit_clear(PORTB, _BV(PB4));
 			break;
 		case SNES_DOWN:
-			snes_release(SNES_UP);
+			//snes_release(SNES_UP);
 			bit_clear(PORTB, _BV(PB5));
 			break;
 		case SNES_LEFT:
-			snes_release(SNES_RIGHT);
+			//snes_release(SNES_RIGHT);
 			bit_clear(PORTC, _BV(PC0));
 			break;
 		case SNES_RIGHT:
-			snes_release(SNES_LEFT);
+			//snes_release(SNES_LEFT);
 			bit_clear(PORTC, _BV(PC1));
 			break;
 		case SNES_A:
