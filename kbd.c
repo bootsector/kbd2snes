@@ -47,8 +47,7 @@ void kbd_init(void) {
 	bit_clear(DDRC, _BV(PC5));
 
 	// If pullups switch is in ON position (grounded), activates pullups for data and clock lines
-	// TODO: Remove the negation below for kbd2snes board v1.0
-	if(!bit_is_clear(PIND, PD5)) {
+	if(bit_is_clear(PIND, PD5)) {
 		bit_set(PORTC, _BV(PC4));
 		bit_set(PORTC, _BV(PC5));
 	}
